@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hospital Queue Prediction</title>
+<style>
+body{font-family:Arial,sans-serif;background:#eef7ff;margin:0;padding:40px}
+.container{max-width:700px;margin:auto;background:#fff;padding:25px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+h1{text-align:center;color:#0b5ed7}
+label{display:block;margin-top:15px;font-weight:bold}
+input,select,button{width:100%;padding:10px;margin-top:5px;border-radius:6px;border:1px solid #bbb}
+button{background:#0b5ed7;color:#fff;border:none;cursor:pointer;font-size:16px}
+.result{margin-top:20px;padding:15px;background:#e8f4ff;border-left:5px solid #0b5ed7}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Hospital Queue Prediction</h1>
+
+<label>Patient Name</label>
+<input id="name" placeholder="Enter patient name">
+
+<label>Patients Waiting</label>
+<input id="queue" type="number" value="8">
+
+<label>Average Consultation Time (minutes)</label>
+<input id="avg" type="number" value="10">
+
+<label>Emergency Cases</label>
+<select id="emergency">
+<option value="0">No</option>
+<option value="20">Yes</option>
+</select>
+
+<button onclick="predict()">Predict Waiting Time</button>
+
+<div class="result" id="output">
+<b>Example Output</b><br>
+Patient: Arun<br>
+Estimated Waiting Time: 80 Minutes
+</div>
+</div>
+
+<script>
+function predict(){
+ let name=document.getElementById("name").value||"Patient";
+ let q=parseInt(document.getElementById("queue").value);
+ let avg=parseInt(document.getElementById("avg").value);
+ let extra=parseInt(document.getElementById("emergency").value);
+ let wait=q*avg+extra;
+
+ document.getElementById("output").innerHTML=
+ "<h3>Prediction Result</h3>"+
+ "<b>Patient:</b> "+name+"<br>"+
+ "<b>Patients Ahead:</b> "+q+"<br>"+
+ "<b>Estimated Waiting Time:</b> "+wait+" minutes<br>"+
+ "<b>Status:</b> "+(wait>60?"High Waiting Time":"Normal");
+}
+</script>
+</body>
+</html>
